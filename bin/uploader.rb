@@ -23,6 +23,14 @@ class Uploader
 
   end
 
+  def get_courses
+    query_database 'SELECT course_name FROM courses WHERE state="active";'
+  end
+
+  def get_students(course)
+    query_database "SELECT * FROM students WHERE course_id=#{course} AND state='active';"
+  end
+
   private
 
   def delete_file(file_name)

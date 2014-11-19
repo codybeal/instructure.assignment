@@ -13,14 +13,25 @@ end
 
 post '/upload' do
 
-  file_name = 'uploads/' + params['myfile'][:filename]
+  file_name = params['myfile'][:filename]
+  complete_file_name = 'uploads/' + file_name
 
-  File.open(file_name, 'w') do |f|
+  File.open(complete_file_name, 'w') do |f|
     f.write(params['myfile'][:tempfile].read)
   end
 
   uploader = Uploader.new
-  uploader.write_to_table file_name
+  uploader.write_to_table complete_file_name
 
-  return file_name + ' was successfully uploaded!'
+  haml :upload_success
+end
+
+get '/courses' do
+  uploader = Uploader.new
+  uploader.get_courses.to_s
+end
+
+get '/students/:course' do
+  uploader = Uploader.new
+  uploader.get_students(params[:course]).to_s
 end
