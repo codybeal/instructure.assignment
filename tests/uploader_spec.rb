@@ -19,14 +19,4 @@ describe 'read file' do
     expect(uploader.student_or_course(%w(course_name course_id state))).to eq :course
     expect(uploader.student_or_course(%w(course_name state course_id))).to eq :course
   end
-
-  it 'should write to the course table' do
-    uploader = Uploader.new
-    uploader.write_to_table '../uploads/course_sample.csv'
-  end
-
-  it 'should write to the student table' do
-    uploader = Uploader.new
-    uploader.write_to_table '../uploads/student_sample.csv'
-  end
 end
